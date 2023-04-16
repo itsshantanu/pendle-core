@@ -1,11 +1,11 @@
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
-import { BigNumber as BN, utils } from 'ethers';
+import { BigNumber as BN, Wallet, utils } from 'ethers';
 import { AvaxConsts, CommonConstsType, EthConsts, PendleConstsType } from '@pendle/constants';
 
 const ONE_E_12 = BN.from(10).pow(12);
 const ONE_E_18 = BN.from(10).pow(18);
 
-export function getLocalCommonConsts(deployer: SignerWithAddress, CommonConsts: CommonConstsType): CommonConstsType {
+export function getLocalCommonConsts(deployer: SignerWithAddress | Wallet, CommonConsts: CommonConstsType): CommonConstsType {
   return {
     ...CommonConsts,
     GOVERNANCE_MULTISIG: deployer.address,
@@ -27,14 +27,14 @@ export function getLocalCommonConsts(deployer: SignerWithAddress, CommonConsts: 
   };
 }
 
-export function getLocalAvaxConsts(deployer: SignerWithAddress): PendleConstsType {
+export function getLocalAvaxConsts(deployer: SignerWithAddress | Wallet): PendleConstsType {
   return {
     ...AvaxConsts,
     common: getLocalCommonConsts(deployer, AvaxConsts.common),
   };
 }
 
-export function getLocalEthConsts(deployer: SignerWithAddress): PendleConstsType {
+export function getLocalEthConsts(deployer: SignerWithAddress | Wallet): PendleConstsType {
   return {
     ...EthConsts,
     common: getLocalCommonConsts(deployer, EthConsts.common),

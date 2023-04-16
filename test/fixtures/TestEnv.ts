@@ -1,7 +1,7 @@
 import { Erc20Token, MiscConsts, PendleConstsType, TokensConstsType } from '@pendle/constants';
 import { assert } from 'chai';
 import { BigNumber as BN, Contract, Wallet } from 'ethers';
-import { waffle } from 'hardhat';
+import { waffle, ethers } from 'hardhat';
 import {
   addFakeIncomeBenQiDAI,
   addFakeIncomeCompoundUSDT,
@@ -17,6 +17,7 @@ import {
 } from '../helpers';
 import { getContract, PendleEnv } from '../../pendle-deployment-scripts';
 import { PendleMerkleDistributor, PendleRedeemProxyETHDep1, PendleRedeemProxyMulti } from '../../typechain-types';
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 export enum Mode {
   AAVE_V2 = 1,
@@ -57,6 +58,15 @@ export function checkDisabled(mode: Mode): boolean {
 }
 
 export let wallets = waffle.provider.getWallets();
+
+// export let wallets: SignerWithAddress[] = [];
+
+// async function initWallets() {
+//   wallets = await ethers.getSigners();
+// }
+
+// initWallets();
+
 
 export type TestEnv = CommonEnv &
   TokensEnv &
@@ -136,7 +146,7 @@ interface CommonEnv {
   liqParams: LiqParams;
   underlyingAsset: Erc20Token;
   underlyingTokens: Erc20Token[];
-  eve: Wallet;
+  eve: SignerWithAddress | Wallet;
 
   // function
   addGenericForgeFakeIncome: any;

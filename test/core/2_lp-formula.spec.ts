@@ -18,6 +18,7 @@ import {
 } from '../helpers';
 import { MiscConsts } from '@pendle/constants';
 import { amountToWei } from '../../pendle-deployment-scripts';
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 export async function runTest(mode: Mode) {
   describe('', async () => {
@@ -55,7 +56,7 @@ export async function runTest(mode: Mode) {
       snapshotId = await evm_snapshot();
     });
 
-    async function checkLpBalance(user: Wallet, expected: BN) {
+    async function checkLpBalance(user: SignerWithAddress | Wallet, expected: BN) {
       approxBigNumber(await env.market.balanceOf(user.address), expected, env.TEST_DELTA);
     }
 

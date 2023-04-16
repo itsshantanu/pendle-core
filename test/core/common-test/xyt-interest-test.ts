@@ -30,6 +30,7 @@ import {
   tokenizeYield,
   yTokenBalance,
 } from '../../helpers';
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 export async function runTest(mode: Mode) {
   describe('', async () => {
@@ -228,11 +229,11 @@ export async function runTest(mode: Mode) {
 
       let period = env.EXPIRY.sub(env.T0).div(10);
 
-      async function transferXyt(from: Wallet, to: Wallet, amount: BN) {
+      async function transferXyt(from: SignerWithAddress | Wallet, to: SignerWithAddress | Wallet, amount: BN) {
         await env.xyt.connect(from).transfer(to.address, amount, teConsts.HG);
       }
 
-      async function transferYieldToken(from: Wallet, to: Wallet, amount: BN) {
+      async function transferYieldToken(from: SignerWithAddress | Wallet, to: SignerWithAddress | Wallet, amount: BN) {
         await env.yToken.connect(from).transfer(to.address, amount, teConsts.HG);
       }
 

@@ -6,6 +6,7 @@ import { Mode, TestEnv, wallets } from '../fixtures/';
 import { sqrt } from './Numeric';
 import { mint, mintXytAave } from './TokenHelpers';
 import { Erc20Token } from '@pendle/constants';
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 export async function deployContract(contractType: string, args: any[]) {
   const contractFactory = await hre.ethers.getContractFactory(contractType);
@@ -127,7 +128,7 @@ export async function addFakeIncomeXJoe(env: TestEnv, numRep: number = 1) {
   }
 }
 
-export async function redeemRewardsFromProtocol(env: TestEnv, users: Wallet[]) {
+export async function redeemRewardsFromProtocol(env: TestEnv, users: SignerWithAddress[] | Wallet[]) {
   if (env.mode == Mode.AAVE_V2) {
     const incentiveController = await getContract('IAaveIncentivesController', env.pconsts.aave!.INCENTIVES_CONTROLLER);
     for (const person of users) {

@@ -1266,7 +1266,7 @@ __metadata:
   resolution: "@pendle/constants@https://github.com/pendle-finance/pendle-constants.git#commit=d8380d64b5e8687cbbacd3f41dd57fe103bb58b7"
   dependencies:
     ethers: ^5.0.1
-  checksum: ff9cc0d4a6fbdf0b45ebaa24c15559a19f9499457c7ad52d0ff053e41444dc2d7d7ad753695d3d93688dab3daa1dfca62befd0a73274804d0e193aa03b979a58
+  checksum: 94cc8c0f60be0a7507c5de2d9412eaf34716a82ad3a3c90e0033b7feeabcb63fba4459b1974eff8fcbd6362e9301cbe436b18fa5fc721dee0d4a5ed3f014da85
   languageName: node
   linkType: hard
 

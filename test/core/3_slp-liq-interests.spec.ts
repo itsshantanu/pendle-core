@@ -27,6 +27,7 @@ import {
   teConsts,
   withdraw,
 } from '../helpers';
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 export async function runTest(mode: Mode) {
   describe('', async () => {
@@ -69,7 +70,7 @@ export async function runTest(mode: Mode) {
       await evm_revert(globalSnapshotId);
     });
 
-    async function _stake(isToMasterChef: boolean, person: Wallet, amount: BN): Promise<void> {
+    async function _stake(isToMasterChef: boolean, person: SignerWithAddress | Wallet, amount: BN): Promise<void> {
       if (isToMasterChef) {
         if (mode == Mode.SLP_LIQ) {
           await env.MasterchefV1.connect(person).deposit(env.ptokens.SUSHI_USDT_WETH_LP!.pid, amount, teConsts.HG);
@@ -81,7 +82,7 @@ export async function runTest(mode: Mode) {
       }
     }
 
-    async function _redeemDueInterests(isToMasterChef: boolean, person: Wallet): Promise<void> {
+    async function _redeemDueInterests(isToMasterChef: boolean, person: SignerWithAddress | Wallet): Promise<void> {
       if (isToMasterChef) {
         if (mode == Mode.SLP_LIQ) {
           await env.MasterchefV1.connect(person).withdraw(env.ptokens.SUSHI_USDT_WETH_LP!.pid, 0, teConsts.HG);
@@ -93,7 +94,7 @@ export async function runTest(mode: Mode) {
       }
     }
 
-    async function _withdraw(isToMasterChef: boolean, person: Wallet, amount: BN): Promise<void> {
+    async function _withdraw(isToMasterChef: boolean, person: SignerWithAddress | Wallet, amount: BN): Promise<void> {
       if (isToMasterChef) {
         if (mode == Mode.SLP_LIQ) {
           await env.MasterchefV1.connect(person).withdraw(env.ptokens.SUSHI_USDT_WETH_LP!.pid, amount, teConsts.HG);
@@ -105,7 +106,7 @@ export async function runTest(mode: Mode) {
       }
     }
 
-    async function _yieldBalanceOf(user: Wallet): Promise<BN> {
+    async function _yieldBalanceOf(user: SignerWithAddress | Wallet): Promise<BN> {
       return await currentYieldTokens.balanceOf(user.address);
     }
 

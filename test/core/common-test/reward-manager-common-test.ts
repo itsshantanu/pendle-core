@@ -25,6 +25,7 @@ import {
 } from '../../helpers';
 import { MiscConsts } from '@pendle/constants';
 import { getContract } from '../../../pendle-deployment-scripts';
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 chai.use(solidity);
 
@@ -116,7 +117,7 @@ export function runTest(mode: Mode) {
       return BN.from(0);
     }
 
-    async function readReward(user: Wallet): Promise<BN> {
+    async function readReward(user: SignerWithAddress | Wallet): Promise<BN> {
       const rewardData = await env.rewardManager.readRewardData(tokenToStake, env.EXPIRY, user.address);
       if (usingMultiReward) {
         return readFromTrio(rewardData.dueRewards);
@@ -314,7 +315,7 @@ export function runTest(mode: Mode) {
       rewardToken = rewardTokens[0];
       async function checkRewardBalanceAfterTxn(
         transaction: any,
-        ofUser: Wallet,
+        ofUser: SignerWithAddress | Wallet,
         shouldBeChanging: boolean
       ): Promise<void> {
         let rewardBefore: BN = await readReward(ofUser);
@@ -368,7 +369,7 @@ export function runTest(mode: Mode) {
     it('skippingRewards should work correctly', async () => {
       if (mode == Mode.TRADER_JOE) return;
 
-      async function redeemRewardsToken(person: Wallet): Promise<BN> {
+      async function redeemRewardsToken(person: SignerWithAddress | Wallet): Promise<BN> {
         let lastBalance: BN = await rewardToken.balanceOf(person.address);
         await redeemOtRewards(env, tokenToStake, person);
         let currentBalance: BN = await rewardToken.balanceOf(person.address);

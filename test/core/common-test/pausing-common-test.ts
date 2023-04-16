@@ -4,6 +4,7 @@ import { loadFixture, solidity } from 'ethereum-waffle';
 import { BigNumber as BN, Wallet } from 'ethers';
 import { marketFixture, Mode, parseTestEnvMarketFixture, TestEnv, wallets } from '../../fixtures';
 import { advanceTime, errMsg, evm_revert, evm_snapshot, mintCompoundToken, teConsts } from '../../helpers';
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 chai.use(solidity);
 
@@ -335,7 +336,7 @@ export async function runTest(mode: Mode) {
 
     it('Hanlder changes should work correctly', async () => {
       let consts = env.pconsts;
-      async function checkHandler(handlers: Wallet[], pendingHandlers?: Wallet[]) {
+      async function checkHandler(handlers: SignerWithAddress[] | Wallet[], pendingHandlers?: SignerWithAddress[] | Wallet[]) {
         const emergencyHandlers = [
           await env.pausingManagerMain.forgeEmergencyHandler(), // forge
           await env.pausingManagerMain.marketEmergencyHandler(), // market

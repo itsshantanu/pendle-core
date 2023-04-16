@@ -1,6 +1,6 @@
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { PendleConstsType, TokensConstsType } from '@pendle/constants';
-import { BigNumber as BN, Contract } from 'ethers';
+import { BigNumber as BN, Contract, Wallet } from 'ethers';
 import { ContractMap } from '.';
 import {
   IJoeRouter01,
@@ -97,7 +97,7 @@ export interface PendleEnv {
   network: Network;
   consts: PendleConstsType;
   tokens: TokensConstsType;
-  deployer: SignerWithAddress;
+  deployer: SignerWithAddress | Wallet;
 
   pendleRouter: PendleRouter;
   pendleData: PendleData;

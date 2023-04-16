@@ -16,8 +16,9 @@ import {
   teConsts,
 } from '../helpers';
 import { routerFixtureNoMint } from './router.fixture';
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
-export async function marketFixture(_: Wallet[], provider: providers.Web3Provider): Promise<TestEnv> {
+export async function marketFixture(_: SignerWithAddress[] | Wallet[], provider: providers.Web3Provider): Promise<TestEnv> {
   console.time('setupMarketFixture');
   let env = await loadFixture(routerFixtureNoMint);
   env.testToken = await deployContract('TestToken', ['Test Token', 'TEST', 6]);

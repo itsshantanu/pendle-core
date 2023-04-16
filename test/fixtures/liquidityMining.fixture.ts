@@ -11,6 +11,7 @@ import {
 } from '../../pendle-deployment-scripts';
 import { approve, approveAll, deployContract, liqParams, teConsts } from '../helpers';
 import { marketFixture } from './market.fixture';
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 export class UserStakeAction {
   time: BN;
@@ -27,7 +28,7 @@ export class UserStakeAction {
 
 const amount = BN.from(100 * 10 ** 6);
 
-export async function liquidityMiningFixture(_: Wallet[], provider: providers.Web3Provider): Promise<TestEnv> {
+export async function liquidityMiningFixture(_: SignerWithAddress[] | Wallet[], provider: providers.Web3Provider): Promise<TestEnv> {
   let env: TestEnv = await loadFixture(marketFixture);
   env.liqParams = liqParams;
   let [alice, bob, charlie, dave, eve] = wallets;

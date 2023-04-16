@@ -21,6 +21,7 @@ import {
   teConsts,
   tokenizeYield,
 } from '../../helpers';
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 chai.use(solidity);
 
@@ -267,7 +268,7 @@ export function runTest(mode: Mode) {
     });
 
     it('skippingRewards should work correctly', async () => {
-      async function redeemRewardsToken(person: Wallet): Promise<BN> {
+      async function redeemRewardsToken(person: SignerWithAddress | Wallet): Promise<BN> {
         let lastBalance: BN = await rewardToken.balanceOf(person.address);
         await redeemOtRewards(env, tokenToStake, person);
         let currentBalance: BN = await rewardToken.balanceOf(person.address);

@@ -14,7 +14,7 @@ import {
   sendAndWaitForTransaction,
   setTimeNextBlock,
 } from '../pendle-deployment-scripts';
-import { BigNumber as BN } from 'ethers';
+import { BigNumber as BN, Wallet } from 'ethers';
 import {
   addRedactedForgeToPendleData,
   deployRedactedForge,
@@ -33,8 +33,8 @@ describe('Redacted forge test', async () => {
   let snapshotId: string;
   let globalSnapshotId: string;
   let env: PendleEnv = {} as PendleEnv;
-  let alice: SignerWithAddress;
-  let bob: SignerWithAddress;
+  let alice: SignerWithAddress | Wallet;
+  let bob: SignerWithAddress | Wallet;
   let REF_AMOUNT: BN;
 
   // redacted data
@@ -70,7 +70,7 @@ describe('Redacted forge test', async () => {
     return T0;
   }
 
-  async function getWXBTRFLY(user: SignerWithAddress, amountXBTRFLY: BN) {
+  async function getWXBTRFLY(user: SignerWithAddress | Wallet, amountXBTRFLY: BN) {
     await mintFromSource(user, amountXBTRFLY, env.tokens.xBTRFLY!);
     await xBTRFLY.connect(user).approve(wxBTRFLY.address, env.consts.misc.INF);
     await wxBTRFLY.connect(user).wrapFromxBTRFLY(REF_AMOUNT_WEI);

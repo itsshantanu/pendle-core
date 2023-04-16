@@ -11,6 +11,7 @@ import { Mode, TestEnv, wallets } from '../../../fixtures';
 import { amountToWei, doInfinityApproveWrapper, getBalanceToken } from '../../../../pendle-deployment-scripts';
 import { BigNumber as BN, BigNumberish, Contract, Wallet } from 'ethers';
 import { expect } from 'chai';
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
 const [alice, bob, charlie, dave, eve] = wallets;
 
@@ -151,14 +152,14 @@ export async function expectZeroBalWrapper(env: TestEnv, tokens: any[]) {
   }
 }
 
-export async function expectNonZeroBalUser(env: TestEnv, user: Wallet, tokens: any[]) {
+export async function expectNonZeroBalUser(env: TestEnv, user: SignerWithAddress | Wallet, tokens: any[]) {
   for (const token of tokens) {
     const balance: BN = await getBalanceToken(token, user.address);
     expect(balance.gt(0), 'Expecting token balance of user to be greater than 0').to.be.true;
   }
 }
 
-export async function expectZeroBalUser(env: TestEnv, user: Wallet, tokens: any[]) {
+export async function expectZeroBalUser(env: TestEnv, user: SignerWithAddress | Wallet, tokens: any[]) {
   for (const token of tokens) {
     const balance: BN = await getBalanceToken(token, user.address);
     expect(balance).to.be.eq(0);

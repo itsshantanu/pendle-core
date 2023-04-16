@@ -37,8 +37,9 @@ import { uniswapV2ForgeFixture as deployUniswapV2Forge } from './UniswapV2Forge.
 import { deployWonderlandFixture } from './WonderlandForge.fixture';
 import { deployxJoeForge } from './XJoeForge.fixture';
 import { deploySushiswapSimpleForge } from './SushiswapSimpleForge.fixture';
+import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 
-export async function routerFixture(_: Wallet[], __: providers.Web3Provider): Promise<TestEnv> {
+export async function routerFixture(_: any[], __: providers.Web3Provider): Promise<TestEnv> {
   console.time('setupRouterFixture');
   let env = await loadFixture(routerFixtureNoMint);
   let tokens = env.ptokens;
@@ -84,7 +85,7 @@ export async function routerFixture(_: Wallet[], __: providers.Web3Provider): Pr
   return env;
 }
 
-export async function routerFixtureNoMint(_: Wallet[], __: providers.Web3Provider): Promise<TestEnv> {
+export async function routerFixtureNoMint(_: SignerWithAddress[] | Wallet[], __: providers.Web3Provider): Promise<TestEnv> {
   console.time('setupRouterFixtureNoMint');
   let env = await coreFixture();
 

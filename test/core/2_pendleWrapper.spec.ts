@@ -1,7 +1,7 @@
 import { checkDisabled, Mode } from '../fixtures/TestEnv';
 import { runTest } from './common-test/pendle-wrapper/pendle-wrapper-test';
 
-describe('pendleWrapper-xJoe', function () {
+describe.only('pendleWrapper-xJoe', function () {
   if (checkDisabled(Mode.XJOE)) return;
   runTest(Mode.XJOE);
 });

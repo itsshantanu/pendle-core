@@ -9,7 +9,7 @@ import { sendAndWaitForTransaction } from './transaction-helpers';
 
 const INF_96bit = BN.from(2).pow(96);
 
-export async function mintFromSource(user: Wallet | SignerWithAddress, amount: BN, token: Erc20Token): Promise<void> {
+export async function mintFromSource(user: Wallet | SignerWithAddress | Wallet, amount: BN, token: Erc20Token): Promise<void> {
   amount = amountToWei(amount, token.decimal);
   let source = token.whale!;
   await getEth(source);
@@ -24,7 +24,7 @@ export async function mintFromSource(user: Wallet | SignerWithAddress, amount: B
 
 export async function getBalanceToken(
   _token: string | SimpleTokenType | Erc20Token | LpToken,
-  user: string | SignerWithAddress
+  user: string | SignerWithAddress | Wallet
 ): Promise<BN> {
   if (typeof _token != 'string') {
     _token = _token.address;

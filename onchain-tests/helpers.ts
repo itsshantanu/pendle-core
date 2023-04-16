@@ -1,12 +1,12 @@
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
-import { BigNumber as BN } from 'ethers';
+import { BigNumber as BN, Wallet } from 'ethers';
 import { Erc20Token, MiscConsts } from '@pendle/constants';
 import { getContract, getEth, impersonateAccount, impersonateAccountStop } from '../pendle-deployment-scripts';
 import hre from 'hardhat';
 import { assert } from 'chai';
 import { DataAddLiqJoeStruct } from '../typechain-types/PendleWrapper';
 
-export async function mintFromSource(user: SignerWithAddress, amount: BN, token: Erc20Token): Promise<void> {
+export async function mintFromSource(user: SignerWithAddress | Wallet , amount: BN, token: Erc20Token): Promise<void> {
   let source = token.whale!;
   await getEth(source);
   await impersonateAccount(source);
