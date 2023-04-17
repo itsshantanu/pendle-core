@@ -46,7 +46,7 @@ const config: HardhatUserConfig = {
         //   0xbFe6D5155040803CeB12a73F8f3763C26dd64a92
 
         {
-          privateKey: `${process.env.PRIVATE_KEYS}`,
+          privateKey: `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`,
           balance: '1000000000000000000000000000000000000',
         },
         {
